@@ -1,2 +1,12 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+*.cs text eol=crlf
+* text=auto eol=lf
+*.unity text
+*.prefab text
+*.meta text
+*.json 
+
+*.unity text eol=lf
+*.asset text eol=lf
+*.unity eol=lf
