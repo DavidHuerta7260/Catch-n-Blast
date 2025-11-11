@@ -1,0 +1,6 @@
+sceneSetups:
+- path: C:/Users/glide/OneDrive/Documents/unityschoolprojects/Catch-n-Blast/Assets/Scenes/Nature
+    Scene 1.unity
+  isLoaded: 1
+  isActive: 1
+  isSubScene: 0
