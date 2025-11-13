@@ -1,45 +1,64 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PitchforkThrow : MonoBehaviour
 {
     [Header("References")]
-    public GameObject pitchfork;      // Assign in Inspector
-    public Transform throwPoint;      // Where it launches from
+    public GameObject pitchforkPrefab;   // Prefab of the pitchfork
+    public Transform spawnPoint;         // Where the pitchfork appears (on player hand)
+    public Camera playerCamera;          // For forward direction
 
     [Header("Throw Settings")]
     public float throwForce = 20f;
     public float destroyAfterSeconds = 5f;
 
-    private bool hasThrown = false;
+    private GameObject currentPitchfork;
+
+    void Start()
+    {
+        SpawnNewPitchfork();
+    }
 
     void Update()
     {
-        // Left mouse click
-        if (Input.GetMouseButtonDown(0) && !hasThrown)
+        if (Input.GetMouseButtonDown(0))
         {
             ThrowPitchfork();
         }
     }
 
+    void SpawnNewPitchfork()
+    {
+        currentPitchfork = Instantiate(pitchforkPrefab, spawnPoint.position, spawnPoint.rotation, spawnPoint);
+        Rigidbody rb = currentPitchfork.GetComponent<Rigidbody>();
+        rb.isKinematic = true;  // So it stays in player hand
+    }
+
     void ThrowPitchfork()
     {
-        if (pitchfork == null) return;
+        if (currentPitchfork == null) return;
 
-        // Detach from player
-        pitchfork.transform.parent = null;
+        // Detach
+        currentPitchfork.transform.parent = null;
 
         // Enable physics
-        Rigidbody rb = pitchfork.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            rb.isKinematic = false;
-            rb.useGravity = true;
-            rb.AddForce(throwPoint.forward * throwForce, ForceMode.Impulse);
-        }
+        Rigidbody rb = currentPitchfork.GetComponent<Rigidbody>();
+        rb.isKinematic = false;
+        rb.useGravity = true;
 
-        hasThrown = true;
-        Destroy(pitchfork, destroyAfterSeconds);
+        // Throw in camera forward direction
+        rb.AddForce(playerCamera.transform.forward * throwForce, ForceMode.Impulse);
+
+        // Destroy after seconds
+        Destroy(currentPitchfork, destroyAfterSeconds);
+
+        // Spawn next pitchfork
+        StartCoroutine(RespawnAfterDelay(0.3f));
+    }
+
+    IEnumerator RespawnAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SpawnNewPitchfork();
     }
 }
