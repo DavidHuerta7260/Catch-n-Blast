@@ -68,6 +68,22 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - DepthColorFade: 0
+    - Depth_Color_Fade: 0
+    - Metallic: 0
+    - Occlusion: 1
+    - Smoothness: 0.5
+    - Transparency: 0.75
+    - Vector1_1032a26c63a44665a135ffa02f63be73: 0.75
+    - Vector1_3156c7a38d7540d88b0504daf221d6f4: 0.5
+    - Vector1_58270e7156ad4a33b69bda0313913dbb: 0
+    - Vector1_597a1c1bd168484dad209158c5c694ca: 0.5
+    - Vector1_b81001aba646440abe0fed557f2c809d: 0
+    - Vector1_b9229da0740c4c76b0d06ec93682f377: 0.81
+    - Vector1_f8b8e55d1e9a483baa653d4af1d123de: 9
+    - WaveHeight: 3
+    - WaveSpeed: 1
+    - WaveStrength: 1
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
@@ -85,6 +101,11 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
+    - Color_01cc1fe8af954d9c9925fa7cc3f9cd46: {r: 0.2520915, g: 0.70231867, b: 0.9716981, a: 0}
+    - Color_c4f673e1c830473099115f06c11fc107: {r: 0, g: 0.40460464, b: 0.5568628, a: 0}
+    - DeepColor: {r: 0, g: 0.97979045, b: 1, a: 0}
+    - ShallowColor: {r: 0, g: 0.18181825, b: 1, a: 0}
+    - WaveDirection: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
