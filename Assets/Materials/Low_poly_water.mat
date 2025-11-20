@@ -70,7 +70,7 @@ Material:
     m_Floats:
     - DepthColorFade: 0
     - Depth_Color_Fade: 0
-    - Metallic: 0
+    - Metallic: 1
     - Occlusion: 1
     - Smoothness: 0.5
     - Transparency: 0.75

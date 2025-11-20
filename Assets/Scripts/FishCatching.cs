@@ -45,7 +45,7 @@ public class FishCatching : MonoBehaviour
            // transform.localPosition = new Vector3(0, -0.5f, 0);
 
             // Destroy fish later (e.g., after 3 seconds)
-            Destroy(gameObject, 3f);
+         //   Destroy(gameObject, 3f);
 
             //  hookCon.gameOver = true;
         }

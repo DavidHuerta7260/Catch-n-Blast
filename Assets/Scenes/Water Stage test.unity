@@ -284,7 +284,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   horizontalSpeed: 100
-  sinkSpeed: 100
+  sinkSpeed: 300
 --- !u!4 &185364235 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 93916a6ecc30e7a46a1afb892cb75e7b, type: 3}
