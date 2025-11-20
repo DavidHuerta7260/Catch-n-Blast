@@ -1,15 +1,17 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FishingRod : MonoBehaviour
 {
-    public bool isEquipped;
+    [Header("Fishing States")]
+    public bool isEquipped = true;
     public bool isFishingAvailable;
-
     public bool isCasted;
     public bool isPulling;
     public bool isBaitInWater;
 
+    [Header("References")]
     private Animator animator;
     public GameObject baitPrefab;
     public GameObject endof_of_rope;
@@ -19,33 +21,40 @@ public class FishingRod : MonoBehaviour
     private Transform baitPosition;
     private GameObject currentBaitInstance;
 
-    private void Start()
+    [Header("Scene Settings")]
+    public string underwaterSceneName = "UnderWater Game";
+    public float timeBeforeSceneChange = 2f;  // bait stays visible before switching scenes
+
+    void Start()
     {
         animator = GetComponent<Animator>();
-        isEquipped = true;
+        isEquipped = true; // rod is active by default
     }
 
     void Update()
     {
-        if (!isEquipped) return;
+        if (!isEquipped) return; // prevent running when switching weapons
 
-        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+        // Center-screen ray
+        Ray ray = Camera.main.ScreenPointToRay(
+            new Vector3(Screen.width / 2, Screen.height / 2, 0)
+        );
         RaycastHit hit;
 
-        // Check for valid fishing spot
+        // Detect fishing area
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
             if (hit.collider.CompareTag("FishingArea"))
             {
                 isFishingAvailable = true;
 
-                // 🎣 Left Click to Cast
+                // CAST LINE
                 if (Input.GetMouseButtonDown(0) && !isCasted && !isPulling)
                 {
                     StartCoroutine(CastRod(hit.point));
                 }
 
-                // 🎣 Left Click Again to Retrieve (if bait already in water)
+                // RETRIEVE LINE
                 else if (Input.GetMouseButtonDown(0) && isCasted && isBaitInWater && !isPulling)
                 {
                     StartCoroutine(RetrieveLine());
@@ -61,7 +70,7 @@ public class FishingRod : MonoBehaviour
             isFishingAvailable = false;
         }
 
-        // 🎯 Update Rope Positions
+        // Update rope endpoints
         if (isCasted || isPulling)
         {
             if (start_of_rope && start_of_rod && endof_of_rope)
@@ -73,7 +82,7 @@ public class FishingRod : MonoBehaviour
             }
         }
 
-        // 🪝 Right Click to Pull Animation
+        // PULL ANIMATION
         if (isCasted && Input.GetMouseButtonDown(1))
         {
             PullRod();
@@ -87,29 +96,29 @@ public class FishingRod : MonoBehaviour
 
         animator.SetTrigger("Cast");
 
-        // Wait for casting animation
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1f); // casting animation
 
-        // Spawn bait at target
-        currentBaitInstance = Instantiate(baitPrefab);
-        currentBaitInstance.transform.position = targetPosition;
+        // Spawn bait at water position
+        currentBaitInstance = Instantiate(baitPrefab, targetPosition, Quaternion.identity);
         baitPosition = currentBaitInstance.transform;
 
-        // Delay to simulate splash/settling
+        // Small splash delay
         yield return new WaitForSeconds(0.5f);
 
         isBaitInWater = true;
+
+        // 🎣 WAIT a bit before switching to the underwater scene
+        yield return new WaitForSeconds(timeBeforeSceneChange);
+
+        SceneManager.LoadScene(underwaterSceneName);
     }
 
     IEnumerator RetrieveLine()
     {
-        // Trigger a reel-back animation
         animator.SetTrigger("Retrieve");
 
-        // Optional: Wait a moment for animation
         yield return new WaitForSeconds(0.8f);
 
-        // Destroy bait and reset state
         if (currentBaitInstance)
             Destroy(currentBaitInstance);
 
@@ -129,5 +138,21 @@ public class FishingRod : MonoBehaviour
             Destroy(currentBaitInstance);
 
         isCasted = false;
+    }
+
+    // Call this from WeaponSwitcher when switching
+    public void SetEquipped(bool equipped)
+    {
+        isEquipped = equipped;
+
+        if (!equipped)
+        {
+            // Prevent leftover states if rod is swapped away mid-cast
+            isCasted = false;
+            isBaitInWater = false;
+
+            if (currentBaitInstance)
+                Destroy(currentBaitInstance);
+        }
     }
 }

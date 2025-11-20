@@ -3,13 +3,51 @@ using UnityEngine.SceneManagement;
 
 public class FishingLineCast : MonoBehaviour
 {
-    // Name of your 2D scene
-    public string underwaterSceneName = "UnderWater Game";
+    [Header("References")]
+    public Rigidbody2D hookRb;
+    public Transform hookTransform;
 
-    public void OnCastLine()
+    [Header("Settings")]
+    public float castForce = 12f;
+    public string underwaterSceneName = "Underwater Game";
+
+    private bool hasCast = false;
+
+    void Update()
     {
-        // Call this when the line hits the water or when the cast animation finishes
+        // Cast on left-click
+        if (Input.GetMouseButtonDown(0) && !hasCast)
+        {
+            CastLine();
+        }
+    }
+
+    void CastLine()
+    {
+        hasCast = true;
+
+        // Reset velocity
+        hookRb.velocity = Vector2.zero;
+
+        // Apply downward force
+        hookRb.bodyType = RigidbodyType2D.Dynamic;
+        hookRb.AddForce(Vector2.down * castForce, ForceMode2D.Impulse);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        // If hook hits the "Water" plane
+        if (other.CompareTag("Water"))
+        {
+            LoadUnderwaterScene();
+        }
+    }
+
+    void LoadUnderwaterScene()
+    {
         SceneManager.LoadScene(underwaterSceneName);
     }
 }
+
+
 
