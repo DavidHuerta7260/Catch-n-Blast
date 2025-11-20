@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class HookController : MonoBehaviour
 {
     public float horizontalSpeed = 5f;
-    public float sinkSpeed = 3f;
+    public float sinkSpeed = 400f;
 
     private Rigidbody2D rb;
 
@@ -17,29 +18,27 @@ public class HookController : MonoBehaviour
         // Hook automatically starts sinking
         rb.velocity = new Vector2(0, -sinkSpeed);
 
-      // if (triggered) {
-      //     Physics2D.gravity *= -1;
-      //  }
     }
 
     void Update()
     {
         float moveX = 0f;
+        float moveY = -sinkSpeed;
 
         if (Input.GetKey(KeyCode.A))
             moveX = -horizontalSpeed;
         else if (Input.GetKey(KeyCode.D))
             moveX = horizontalSpeed;
 
-        // Keep sinking while moving sideways
-       // rb.velocity = new Vector2(moveX, -sinkSpeed);
-        rb.velocity = new Vector2(moveX, rb.velocity.y);
+        if (Input.GetKey(KeyCode.S)) {
+            moveY = -sinkSpeed * 2f;
+        }
+        else if (Input.GetKey(KeyCode.W)) {
+            moveY = -sinkSpeed * 0.5f;
+        }
 
+        rb.velocity = new Vector2(moveX, moveY);
 
-       // if (triggered)
-       // {
-       //     Physics2D.gravity *= -1;
-       // }
     }
 
 
@@ -50,16 +49,7 @@ public class HookController : MonoBehaviour
         if (other.gameObject.CompareTag("Fish") && !triggered)
         {
             triggered = true;
-
-            rb.gravityScale *= -1; // Multiplies the current gravity vector by -1, reversing its direction
-
-            rb.velocity = new Vector2(rb.velocity.x, 0);
+            sinkSpeed = sinkSpeed * -1;
         }
     }
-
-
-  //  void changeGrav() {
-    //    Physics.gravity *= -1;
-
-   // }
 }
