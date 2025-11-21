@@ -7,7 +7,6 @@ TagManager:
   - Ground
   - FishingArea
   - Fish
-  - Bottom
   layers:
   - Default
   - TransparentFX
