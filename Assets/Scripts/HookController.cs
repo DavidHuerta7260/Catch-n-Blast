@@ -46,7 +46,7 @@ public class HookController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
 
-        if ((other.gameObject.CompareTag("Fish") || other.gameObject.CompareTag("Bottom")) && !triggered)
+        if (other.gameObject.CompareTag("Fish") && !triggered)
         {
             triggered = true;
             sinkSpeed = sinkSpeed * -1;
