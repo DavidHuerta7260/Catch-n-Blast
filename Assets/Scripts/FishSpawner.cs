@@ -4,18 +4,24 @@ using UnityEngine;
 
 public class FishSpawner : MonoBehaviour
 {
-    [Header("Fish Spawning Settings")]
-    public GameObject fishPrefab;      // Assign your fish prefab here
-    public int fishCount = 10;         // Editable number of fish to spawn
-    public Vector3 spawnArea = new Vector3(20f, 0f, 20f); // X/Z area size
+    public GameObject fishPrefab1;
+    public GameObject fishPrefab2;
+    public GameObject fishPrefab3;
 
-    [Header("Vertical Movement Settings")]
+    public int fishCount = 10;
+    public Vector3 spawnArea = new Vector3(20f, 0f, 20f);
+
     public float minY = 2f;
     public float maxY = 10f;
 
     void Start()
     {
+        if (!SceneLoadState.enableFishSpawnerOnLoad)
+            return;
+
         SpawnFish();
+
+        SceneLoadState.enableFishSpawnerOnLoad = false;
     }
 
     void SpawnFish()
@@ -23,10 +29,10 @@ public class FishSpawner : MonoBehaviour
         for (int i = 0; i < fishCount; i++)
         {
             Vector3 randomPos = GetRandomPosition();
+            GameObject chosenFish = ChooseFish();
 
-            GameObject fish = Instantiate(fishPrefab, randomPos, Quaternion.identity);
+            GameObject fish = Instantiate(chosenFish, randomPos, Quaternion.identity);
 
-            // Apply vertical movement settings automatically
             FishVerticalMovement movement = fish.GetComponent<FishVerticalMovement>();
             if (movement != null)
             {
@@ -36,22 +42,28 @@ public class FishSpawner : MonoBehaviour
         }
     }
 
+    GameObject ChooseFish()
+    {
+        int r = Random.Range(0, 3);
+        if (r == 0) return fishPrefab1;
+        if (r == 1) return fishPrefab2;
+        return fishPrefab3;
+    }
+
     Vector3 GetRandomPosition()
     {
         float x = transform.position.x + Random.Range(-spawnArea.x / 2f, spawnArea.x / 2f);
         float z = transform.position.z + Random.Range(-spawnArea.z / 2f, spawnArea.z / 2f);
-
-        // Start somewhere inside the min/max Y range
         float y = Random.Range(minY, maxY);
-
         return new Vector3(x, y, z);
     }
 
-    // Draw the spawn area in Scene View
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(transform.position + new Vector3(0, (minY + maxY) / 2f, 0),
+        Gizmos.DrawWireCube(
+            transform.position + new Vector3(0, (minY + maxY) / 2f, 0),
             new Vector3(spawnArea.x, maxY - minY, spawnArea.z));
     }
 }
+

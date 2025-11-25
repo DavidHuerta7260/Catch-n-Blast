@@ -5,40 +5,25 @@ using UnityEngine.SceneManagement;
 
 public class LoadNewScene : MonoBehaviour
 {
-
     public string sceneName;
-
     private bool triggered = false;
 
-
-
-    void Start()
-    {
-    
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
-   
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player") && !triggered)
+        if (triggered) return;
+
+        if (other.CompareTag("Player") || other.CompareTag("Hook"))
         {
             if (!string.IsNullOrEmpty(sceneName))
             {
+                if (sceneName == "Nature Scene 1")
+                    SceneLoadState.equipPitchforkOnLoad = true;
+                    SceneLoadState.enableFishSpawnerOnLoad = true;
+
                 SceneManager.LoadScene(sceneName);
                 triggered = true;
-            }
-            else
-            {
-                Debug.LogWarning("Scene name is not set in LoadNewScene script.");
             }
         }
     }
 }
+

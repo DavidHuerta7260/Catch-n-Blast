@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,70 +9,78 @@ public class GameManager : MonoBehaviour
 
     private int score = 0;
 
-    public Text scoreText;
+    public int totalFishThisRun = 0;
+    public int scoredFish = 0;
 
-    void Awake() {
+    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI allFishCaughtText;
+
+    public GameObject fishingRod;
+    public GameObject pitchfork;
+
+    void Awake()
+    {
         if (instance == null)
-        {
             instance = this;
-            DontDestroyOnLoad(gameObject);
-
-            // Subscribe to scene load event
-            SceneManager.sceneLoaded += OnSceneLoaded;
-        }
-        else { 
+        else
+        {
             Destroy(gameObject);
+            return;
         }
     }
+
     void Start()
     {
-        if (scoreText == null)
-        {
-            scoreText = FindObjectOfType<Text>();
-        }
+        UpdateScoreUI();
 
-        //    if (playerController == null)
-        //   {
-        //     playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerPlatformerController>();
-
-        // }
-
-        updateScoreUI();
+        if (allFishCaughtText != null)
+            allFishCaughtText.gameObject.SetActive(false);
     }
-
-    void Update()
-    {
-        updateScoreUI();
-
-
-
-    }
-
 
     public void AddPoint()
     {
         score++;
-        Debug.Log("Score: " + score);
-        updateScoreUI();
+        scoredFish++;
+
+        UpdateScoreUI();
+        CheckIfAllFishScored();
     }
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    void CheckIfAllFishScored()
     {
-        // Re‑find the scoreText in the new scene
-        scoreText = FindObjectOfType<Text>();
-        updateScoreUI();
-    }
+        if (scoredFish >= totalFishThisRun)
+        {
+            ShowAllFishCaughtMessage();
 
-    private void updateScoreUI() { 
-        if (scoreText != null) {
-            scoreText.text = "Score: " + GetScore();
+            if (fishingRod != null)
+                fishingRod.SetActive(true);
+
+            if (pitchfork != null)
+                pitchfork.SetActive(false);
         }
-
-
     }
 
-    public int GetScore()
+    public void ResetFishCounters(int total)
     {
-        return score;
+        totalFishThisRun = total;
+        scoredFish = 0;
+
+        if (allFishCaughtText != null)
+            allFishCaughtText.gameObject.SetActive(false);
+    }
+
+    private void UpdateScoreUI()
+    {
+        if (scoreText != null)
+            scoreText.text = "Score: " + score;
+    }
+
+    void ShowAllFishCaughtMessage()
+    {
+        if (allFishCaughtText != null)
+        {
+            allFishCaughtText.gameObject.SetActive(true);
+            allFishCaughtText.text = "🎉 Congratulations!\nYou caught ALL the fish!\nCast your line again to catch more!";
+        }
     }
 }

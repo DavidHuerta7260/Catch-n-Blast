@@ -17,10 +17,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Credits.unity
     guid: 982c7f687d6abb1438a49f956bf98bf8
-  - enabled: 1
-    path: Assets/Scenes/UnderWater2.unity
-    guid: 9a66d48cc9c90484abf59f006534f192
-  - enabled: 1
-    path: Assets/Scenes/UnderWater3.unity
-    guid: c235a64cb64543e48b0ab7c671d2983d
   m_configObjects: {}

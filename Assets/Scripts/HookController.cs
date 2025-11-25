@@ -19,9 +19,6 @@ public class HookController : MonoBehaviour
     public TextMeshPro depthText;
     private int fishCount = 0;
 
-    private AudioSource playerAudio;
-    public AudioClip bubbleClip;
-
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -32,8 +29,6 @@ public class HookController : MonoBehaviour
 
         if (depthText != null)
             depthText.text = "0m";
-
-        playerAudio = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -75,12 +70,8 @@ public class HookController : MonoBehaviour
             if (fish != null)
                 fish.enabled = false;
 
-           //plays bubble sound effect
-            playerAudio.PlayOneShot(bubbleClip, 1.0f);
-
             caughtFish.Add(other.transform);
 
-            GameManager.instance.AddPoint(); // award point
             fishCount++;
             if (fishCounterText != null)
                 fishCounterText.text = "x " + fishCount;
