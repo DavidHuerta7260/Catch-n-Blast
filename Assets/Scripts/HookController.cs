@@ -1,12 +1,13 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class HookController : MonoBehaviour
 {
     [Header("Hook Movement")]
     public float horizontalSpeed = 5f;
-    public float sinkSpeed = 400f;   // your value
+    public float sinkSpeed = 400f;
 
     private Rigidbody2D rb;
     private bool triggered = false;
@@ -16,6 +17,10 @@ public class HookController : MonoBehaviour
     public float fishSpacing = 0.5f;
     private List<Transform> caughtFish = new List<Transform>();
 
+    [Header("UI - Fish Counter")]
+    public TextMeshPro fishCounterText;   
+    private int fishCount = 0;
+
 
     void Start()
     {
@@ -23,6 +28,10 @@ public class HookController : MonoBehaviour
 
         // Hook automatically starts sinking
         rb.velocity = new Vector2(0, -sinkSpeed);
+
+        // Initialize UI
+        if (fishCounterText != null)
+            fishCounterText.text = "x 0";
     }
 
 
@@ -37,13 +46,13 @@ public class HookController : MonoBehaviour
         else if (Input.GetKey(KeyCode.D))
             moveX = horizontalSpeed;
 
-        // Speed up/down the sinking speed
+        // Speed up or slow down sink speed
         if (Input.GetKey(KeyCode.S))
-            moveY = -sinkSpeed * 2f;
+            moveY = -sinkSpeed * 2f;       // Faster sinking
         else if (Input.GetKey(KeyCode.W))
-            moveY = -sinkSpeed * 0.5f;
+            moveY = -sinkSpeed * 0.5f;     // Slower sinking
 
-        // Apply the final velocity
+        // Apply movement
         rb.velocity = new Vector2(moveX, moveY);
     }
 
@@ -55,12 +64,12 @@ public class HookController : MonoBehaviour
         if (other.CompareTag("Bottom") && !triggered)
         {
             triggered = true;
-            sinkSpeed *= -1;
+            sinkSpeed *= -1; // reverse
             return;
         }
 
 
-        
+       
         if (other.CompareTag("Fish"))
         {
             // Stop fish movement
@@ -68,17 +77,22 @@ public class HookController : MonoBehaviour
             if (fish != null)
                 fish.enabled = false;
 
-            // Track the fish
+            // Add to list
             caughtFish.Add(other.transform);
+
+            // Increase count + update UI
+            fishCount++;
+            if (fishCounterText != null)
+                fishCounterText.text = "x " + fishCount;
 
             // Attach fish to anchor
             other.transform.SetParent(fishAnchor);
 
-            // Stack vertically downward
+            // Stack vertically
             int index = caughtFish.Count - 1;
             other.transform.localPosition = new Vector3(0, -fishSpacing * index, 0);
 
-            // Trigger upward movement only once
+            // Reverse direction only once
             if (!triggered)
             {
                 triggered = true;
