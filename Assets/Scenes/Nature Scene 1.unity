@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028301, g: 0.22571309, b: 0.30692127, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3859,6 +3859,7 @@ GameObject:
   - component: {fileID: 1506642819}
   - component: {fileID: 1506642818}
   - component: {fileID: 1506642817}
+  - component: {fileID: 1506642821}
   m_Layer: 0
   m_Name: WaterPlane
   m_TagString: FishingArea
@@ -3943,6 +3944,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1506642821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1506642816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 833f4c13b7dcb0b499b9d5a0544d1583, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  castForce: 12
+  underwaterSceneName: Underwater Game
 --- !u!1001 &1538456658
 PrefabInstance:
   m_ObjectHideFlags: 0

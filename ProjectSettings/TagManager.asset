@@ -8,6 +8,7 @@ TagManager:
   - FishingArea
   - Fish
   - Bottom
+  - Bait
   layers:
   - Default
   - TransparentFX
