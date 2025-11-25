@@ -72,6 +72,7 @@ public class HookController : MonoBehaviour
 
             caughtFish.Add(other.transform);
 
+            GameManager.instance.AddPoint(); // award point
             fishCount++;
             if (fishCounterText != null)
                 fishCounterText.text = "x " + fishCount;
