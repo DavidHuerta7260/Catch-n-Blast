@@ -83,4 +83,8 @@ public class GameManager : MonoBehaviour
             allFishCaughtText.text = "🎉 Congratulations!\nYou caught ALL the fish!\nCast your line again to catch more!";
         }
     }
+    public int GetScore()
+    {
+        return score;
+    }
 }
