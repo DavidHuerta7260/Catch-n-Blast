@@ -1,15 +1,21 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
 public class FishingLineCast : MonoBehaviour
 {
     [Header("Settings")]
+    public int randStage;
     public float castForce = 12f;
     public string underwaterSceneName = "Underwater Game";
 
     private bool hasCast = false;
     private Rigidbody2D rb;
 
+     void Awake()
+    {
+        randStage = Random.Range(0,3);
+    }
     void Start()
     {
         // Get the Rigidbody2D on the same GameObject
@@ -48,7 +54,21 @@ public class FishingLineCast : MonoBehaviour
 
     void LoadUnderwaterScene()
     {
-        SceneManager.LoadScene(underwaterSceneName);
+        switch (randStage) {
+            default: 
+                break;
+            case 0:
+                SceneManager.LoadScene("Underwater Game");
+                break;
+            case 1:
+                SceneManager.LoadScene("UnderWater2");
+                break;
+            case 2:
+                SceneManager.LoadScene("UnderWater3");
+                break;
+        }
+        
+        //SceneManager.LoadScene(underwaterSceneName);
     }
 }
 

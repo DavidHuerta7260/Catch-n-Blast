@@ -7,9 +7,9 @@ public class BottomScrapper : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (GameManager.instance.GetScore() >= 25) { 
-            Destroy(gameObject);
-        }
+      //  if (GameManager.instance.GetScore() >= 25) { 
+      //      Destroy(gameObject);
+       // }
         
     }
 
