@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657815, g: 0.49641192, b: 0.5748165, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -452,7 +452,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Score:'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -695,7 +695,6 @@ Transform:
   - {fileID: 1339764982}
   - {fileID: 504720270}
   - {fileID: 963194228}
-  - {fileID: 373502449}
   - {fileID: 496116030}
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -1492,12 +1491,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 373502448}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.25, y: 0.5, z: 0}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 244918577}
-  m_RootOrder: 3
+  m_Father: {fileID: 835289239}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1001 &376459089
 PrefabInstance:
@@ -2022,7 +2021,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 244918577}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &496116031
 MonoBehaviour:
@@ -3847,6 +3846,7 @@ Transform:
   m_Children:
   - {fileID: 2485188116358158156}
   - {fileID: 362868266}
+  - {fileID: 373502449}
   m_Father: {fileID: 1339764982}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6511,7 +6511,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3357736351584956052, guid: b31c92ed7fa444f45aed47159b2c202e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 41.32
+      value: 35.55
       objectReference: {fileID: 0}
     - target: {fileID: 3357736351584956052, guid: b31c92ed7fa444f45aed47159b2c202e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6519,7 +6519,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3357736351584956052, guid: b31c92ed7fa444f45aed47159b2c202e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 42.82
+      value: 37.3
       objectReference: {fileID: 0}
     - target: {fileID: 3357736351584956052, guid: b31c92ed7fa444f45aed47159b2c202e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7780,7 +7780,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -458, y: -101}
+  m_AnchoredPosition: {x: -458, y: -56.2}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1797317631
@@ -7830,8 +7830,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25
-  m_fontSizeBase: 25
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -7866,7 +7866,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -63.41107, y: 0, z: 0, w: 0}
+  m_margin: {x: -74.657715, y: 0, z: -299.34366, w: -79.1182}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
