@@ -75,12 +75,15 @@ public class HookController : MonoBehaviour
             if (fish != null)
                 fish.enabled = false;
 
-            //plays bubble sound effect
             playerAudio.PlayOneShot(bubbleClip, 1.0f);
 
             caughtFish.Add(other.transform);
 
             fishCount++;
+
+            // NEW: save fish caught for next scene
+            SceneLoadState.fishCaughtLastRun = fishCount;
+
             if (fishCounterText != null)
                 fishCounterText.text = "x " + fishCount;
 
@@ -96,4 +99,3 @@ public class HookController : MonoBehaviour
         }
     }
 }
-

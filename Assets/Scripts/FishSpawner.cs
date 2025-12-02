@@ -19,10 +19,17 @@ public class FishSpawner : MonoBehaviour
         if (!SceneLoadState.enableFishSpawnerOnLoad)
             return;
 
+        if (SceneLoadState.fishCaughtLastRun > 0)
+            fishCount = SceneLoadState.fishCaughtLastRun;
+
         SpawnFish();
+
+        // NEW: Tell GameManager how many fish exist this run
+        GameManager.instance.ResetFishCounters(fishCount);
 
         SceneLoadState.enableFishSpawnerOnLoad = false;
     }
+
 
     void SpawnFish()
     {
@@ -57,13 +64,6 @@ public class FishSpawner : MonoBehaviour
         float y = Random.Range(minY, maxY);
         return new Vector3(x, y, z);
     }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(
-            transform.position + new Vector3(0, (minY + maxY) / 2f, 0),
-            new Vector3(spawnArea.x, maxY - minY, spawnArea.z));
-    }
 }
+
 
