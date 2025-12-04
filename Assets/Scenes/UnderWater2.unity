@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657815, g: 0.49641192, b: 0.5748165, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -538,6 +538,7 @@ MonoBehaviour:
   fishCounterText: {fileID: 1174077899}
   depthText: {fileID: 331846210}
   bubbleClip: {fileID: 8300000, guid: d0fe095353a34314d895ed054b5d30d7, type: 3}
+  nxtSceLoad: {fileID: 1971005238}
 --- !u!4 &185364235 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 93916a6ecc30e7a46a1afb892cb75e7b, type: 3}
@@ -4588,7 +4589,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1971005239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4685,7 +4686,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1971005238}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -9.6348, y: 785, z: 307}
+  m_LocalPosition: {x: -9.6348, y: 581, z: 307}
   m_LocalScale: {x: 770.2916, y: 1105.0015, z: 25}
   m_Children: []
   m_Father: {fileID: 0}
