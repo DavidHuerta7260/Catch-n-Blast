@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
     public void AddPoint()
     {
         score++;
+        score *= score;
         scoredFish++;
 
         UpdateScoreUI();
@@ -86,5 +87,9 @@ public class GameManager : MonoBehaviour
     public int GetScore()
     {
         return score;
+    }
+
+    public void setScore(int reduc) {
+        score = reduc;
     }
 }

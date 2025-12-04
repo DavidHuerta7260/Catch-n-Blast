@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody))]
 public class FirstPersonMovement : MonoBehaviour
@@ -20,11 +21,18 @@ public class FirstPersonMovement : MonoBehaviour
     private float xRotation = 0f;
     private bool isGrounded;
 
+    public GameObject ShopPanel;
+    private bool nearShop = false;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        //ShopPanel = GetComponent<Panel>();
+        if (ShopPanel != null) { 
+            ShopPanel.SetActive(false );
+        }
     }
 
     void Update()
@@ -32,6 +40,22 @@ public class FirstPersonMovement : MonoBehaviour
         HandleLook();
         HandleMove();
         HandleJump();
+
+        if (nearShop && Input.GetKeyDown(KeyCode.E))
+        {
+            if (ShopPanel.activeSelf)
+            {
+                ShopPanel.SetActive(false);
+                Cursor.lockState = CursorLockMode.Locked; // unlock cursor for UI
+                Cursor.visible = false;
+            }
+            else
+            {
+                ShopPanel.SetActive(true);
+                Cursor.lockState = CursorLockMode.None; // re-lock cursor for gameplay
+                Cursor.visible = true;
+            }
+        }
     }
 
     void HandleLook()
@@ -67,6 +91,25 @@ public class FirstPersonMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+
+        if (other.CompareTag("Shop"))
+        {
+            nearShop = true;
+        }
+
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Shop"))
+        {
+            nearShop = false; 
+            ShopPanel.SetActive(false);
         }
     }
 }
