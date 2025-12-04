@@ -22,6 +22,8 @@ public class HookController : MonoBehaviour
     private AudioSource playerAudio;
     public AudioClip bubbleClip;
 
+    public GameObject nxtSceLoad;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -66,6 +68,7 @@ public class HookController : MonoBehaviour
         {
             triggered = true;
             sinkSpeed *= -1;
+            nxtSceLoad.SetActive(true);
             return;
         }
 
@@ -73,13 +76,25 @@ public class HookController : MonoBehaviour
         {
             FishSwim3D fish = other.GetComponent<FishSwim3D>();
             if (fish != null)
+            {
                 fish.enabled = false;
+                nxtSceLoad.SetActive(true);
+
+            }
 
             playerAudio.PlayOneShot(bubbleClip, 1.0f);
 
             caughtFish.Add(other.transform);
 
+            FishSwim3D[] allFish = FindObjectsOfType<FishSwim3D>();
+            foreach (FishSwim3D f in allFish) {
+                if (f != null && f.enabled) { 
+                    f.IncreaseSpeed();
+                }
+            }
+
             fishCount++;
+
 
             // NEW: save fish caught for next scene
             SceneLoadState.fishCaughtLastRun = fishCount;

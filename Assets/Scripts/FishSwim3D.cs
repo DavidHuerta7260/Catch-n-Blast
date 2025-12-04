@@ -33,5 +33,9 @@ public class FishSwim3D : MonoBehaviour
         rot.y += 180f;
         transform.eulerAngles = rot;
     }
+
+    public void IncreaseSpeed() {
+        swimSpeed *= 1.5f;
+        }
 }
 

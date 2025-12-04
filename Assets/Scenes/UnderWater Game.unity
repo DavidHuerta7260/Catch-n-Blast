@@ -633,6 +633,7 @@ MonoBehaviour:
   fishCounterText: {fileID: 1174077899}
   depthText: {fileID: 331846210}
   bubbleClip: {fileID: 8300000, guid: f8ecb07ba7b11774488a378df38ffd77, type: 3}
+  nxtSceLoad: {fileID: 1971005238}
 --- !u!4 &185364235 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 93916a6ecc30e7a46a1afb892cb75e7b, type: 3}
@@ -2849,17 +2850,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 578052492758629919, guid: a479788ebc7835b49bbcc3e5b3526196, type: 3}
   m_PrefabInstance: {fileID: 1080570778}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1095097041 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3223657291741945863, guid: 03ca6b6dafc0f294f80b4fdea64ed492, type: 3}
-  m_PrefabInstance: {fileID: 3223657292795067094}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1101753769
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3707,7 +3697,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalFishThisRun: 0
   scoredFish: 0
-  scoreText: {fileID: 1095097041}
+  scoreText: {fileID: 0}
   allFishCaughtText: {fileID: 0}
   fishingRod: {fileID: 0}
   pitchfork: {fileID: 0}
@@ -4695,7 +4685,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1971005239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4792,7 +4782,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1971005238}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -9.6348, y: 785, z: 307}
+  m_LocalPosition: {x: -9.6348, y: 681, z: 307}
   m_LocalScale: {x: 770.2916, y: 1105.0015, z: 25}
   m_Children: []
   m_Father: {fileID: 0}
