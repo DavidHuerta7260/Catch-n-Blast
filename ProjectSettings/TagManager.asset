@@ -9,6 +9,8 @@ TagManager:
   - Fish
   - Bottom
   - Bait
+  - Event
+  - Shop
   layers:
   - Default
   - TransparentFX
