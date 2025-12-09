@@ -107,3 +107,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 323d638192c5edf4e952a4516e008d6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fishHitEffectPrefab: {fileID: 3603594204106460700, guid: 743ce290c74ae49c19aa3f128322fc7e, type: 3}

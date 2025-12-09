@@ -4,15 +4,31 @@ using UnityEngine;
 
 public class PitchforkHit : MonoBehaviour
 {
+    public GameObject fishHitEffectPrefab;  // drag your particle prefab here
+
     private void OnCollisionEnter(Collision collision)
     {
-        // If it hits a fish, destroy both and add a point
         if (collision.gameObject.CompareTag("Fish"))
         {
-            Destroy(collision.gameObject); // destroy the fish
-            Destroy(gameObject); // destroy the spear
+            // Spawn particle effect at fish position
+            if (fishHitEffectPrefab != null)
+            {
+                Instantiate(
+                    fishHitEffectPrefab,
+                    collision.transform.position,
+                    Quaternion.identity
+                );
+            }
 
-            GameManager.instance.AddPoint(); // award point
+            // Award point
+            GameManager.instance.AddPoint();
+
+            // Destroy the fish
+            Destroy(collision.gameObject);
+
+            // Destroy the pitchfork projectile
+            Destroy(gameObject);
         }
     }
 }
+
