@@ -40,12 +40,12 @@ public class GameManager : MonoBehaviour
     public void AddPoint()
     {
         score++;
-        score *= score;
         scoredFish++;
 
         UpdateScoreUI();
         CheckIfAllFishScored();
     }
+
 
     void CheckIfAllFishScored()
     {
