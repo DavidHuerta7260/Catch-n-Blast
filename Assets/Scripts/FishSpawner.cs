@@ -26,6 +26,8 @@ public class FishSpawner : MonoBehaviour
 
         // NEW: Tell GameManager how many fish exist this run
         GameManager.instance.ResetFishCounters(fishCount);
+        GameManager.instance.StartFishHitTimer();
+
 
         SceneLoadState.enableFishSpawnerOnLoad = false;
     }

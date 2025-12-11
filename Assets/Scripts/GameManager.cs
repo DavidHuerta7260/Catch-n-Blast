@@ -18,6 +18,12 @@ public class GameManager : MonoBehaviour
     public GameObject fishingRod;
     public GameObject pitchfork;
 
+    public float fishHitTimeLimit = 30f;
+    private float timer = 0f;
+    private bool timerActive = false;
+
+    public TextMeshProUGUI timerText;
+
     void Awake()
     {
         if (instance == null)
@@ -35,6 +41,76 @@ public class GameManager : MonoBehaviour
 
         if (allFishCaughtText != null)
             allFishCaughtText.gameObject.SetActive(false);
+
+        if (timerText != null)
+            timerText.gameObject.SetActive(false);
+    }
+
+    void Update()
+    {
+        if (timerActive)
+        {
+            timer -= Time.deltaTime;
+
+            if (timerText != null)
+                timerText.text = "Time: " + Mathf.CeilToInt(timer).ToString();
+
+            if (timer <= 0)
+                EndFishHitPhase();
+        }
+    }
+
+    public void StartFishHitTimer()
+    {
+        if (timerText == null)
+        {
+            GameObject tObj = GameObject.Find("TimerText");
+            if (tObj != null)
+                timerText = tObj.GetComponent<TextMeshProUGUI>();
+        }
+
+        timer = fishHitTimeLimit;
+        timerActive = true;
+
+        if (timerText != null)
+        {
+            timerText.gameObject.SetActive(true);
+            timerText.text = "Time: " + Mathf.CeilToInt(timer).ToString();
+        }
+    }
+
+
+    void EndFishHitPhase()
+    {
+        timerActive = false;
+
+        if (timerText != null)
+            timerText.gameObject.SetActive(false);
+
+        RemoveAllRemainingFish();
+        GivePlayerBackRod();
+    }
+
+    void RemoveAllRemainingFish()
+    {
+        GameObject[] fishLeft = GameObject.FindGameObjectsWithTag("Fish");
+        foreach (GameObject f in fishLeft)
+            Destroy(f);
+    }
+
+    void GivePlayerBackRod()
+    {
+        if (fishingRod != null)
+            fishingRod.SetActive(true);
+
+        if (pitchfork != null)
+        {
+            PitchforkThrow pf = pitchfork.GetComponent<PitchforkThrow>();
+            if (pf != null)
+                pf.enabled = false;
+
+            pitchfork.SetActive(false);
+        }
     }
 
     public void AddPoint()
@@ -46,18 +122,17 @@ public class GameManager : MonoBehaviour
         CheckIfAllFishScored();
     }
 
-
     void CheckIfAllFishScored()
     {
         if (scoredFish >= totalFishThisRun)
         {
+            timerActive = false;
+
+            if (timerText != null)
+                timerText.gameObject.SetActive(false);
+
             ShowAllFishCaughtMessage();
-
-            if (fishingRod != null)
-                fishingRod.SetActive(true);
-
-            if (pitchfork != null)
-                pitchfork.SetActive(false);
+            GivePlayerBackRod();
         }
     }
 
@@ -81,15 +156,18 @@ public class GameManager : MonoBehaviour
         if (allFishCaughtText != null)
         {
             allFishCaughtText.gameObject.SetActive(true);
-            allFishCaughtText.text = "🎉 Congratulations!\nYou caught ALL the fish!\nCast your line again to catch more!";
+            allFishCaughtText.text =
+                "🎉 Congratulations!\nYou caught ALL the fish!\nCast your line again to catch more!";
         }
     }
+
     public int GetScore()
     {
         return score;
     }
 
-    public void setScore(int reduc) {
+    public void setScore(int reduc)
+    {
         score = reduc;
     }
 }
